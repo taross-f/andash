@@ -1,4 +1,4 @@
-import { URL } from "url";
+import { URL } from "node:url";
 
 export function normalizeUrl(inputUrl: string): string {
   try {
@@ -37,7 +37,7 @@ export function sleep(ms: number): Promise<void> {
 
 export function clampText(text: string, maxChars: number): string {
   if (text.length <= maxChars) return text;
-  return text.slice(0, maxChars) + "\n[...truncated...]";
+  return `${text.slice(0, maxChars)}\n[...truncated...]`;
 }
 
 export function slugify(input: string): string {

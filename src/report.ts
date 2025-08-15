@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import type { CFPProposal, ConferenceInfo, CrawledPage, SearchResultItem } from "./types.js";
 import { slugify } from "./utils.js";
 
@@ -26,15 +26,15 @@ export function generateReportMarkdown(opts: {
   proposals.forEach((p, i) => {
     lines.push(`### ${i + 1}. ${p.title}`);
     lines.push("");
-    lines.push((language === "ja" ? "概要" : "Abstract") + ":");
+    lines.push(`${language === "ja" ? "概要" : "Abstract"}:`);
     lines.push("");
     lines.push(p.abstract);
     lines.push("");
-    lines.push((language === "ja" ? "想定聴衆" : "Target audience") + `: ${p.targetAudience}`);
-    lines.push((language === "ja" ? "難易度" : "Difficulty") + `: ${p.difficulty}`);
-    if (p.rationale) lines.push((language === "ja" ? "根拠" : "Rationale") + `: ${p.rationale}`);
+    lines.push(`${language === "ja" ? "想定聴衆" : "Target audience"}: ${p.targetAudience}`);
+    lines.push(`${language === "ja" ? "難易度" : "Difficulty"}: ${p.difficulty}`);
+    if (p.rationale) lines.push(`${language === "ja" ? "根拠" : "Rationale"}: ${p.rationale}`);
     if (p.references?.length) {
-      lines.push((language === "ja" ? "参考URL" : "References") + ":");
+      lines.push(`${language === "ja" ? "参考URL" : "References"}:`);
       p.references.forEach((u) => lines.push(`- ${u}`));
     }
     lines.push("");

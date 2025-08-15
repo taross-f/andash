@@ -17,8 +17,8 @@ describe("search", () => {
 
   beforeEach(() => {
     // Clear API keys
-    delete process.env.TAVILY_API_KEY;
-    delete process.env.SERPAPI_API_KEY;
+    process.env.TAVILY_API_KEY = undefined;
+    process.env.SERPAPI_API_KEY = undefined;
 
     // Reset mocks
     mockAxios.post.mockClear();
@@ -142,7 +142,7 @@ describe("search", () => {
           data: '<a rel="nofollow" class="result__a" href="https://example.com">Example Title</a>',
         });
 
-        const results = await searchWeb("test query", "auto");
+        const _results = await searchWeb("test query", "auto");
 
         expect(mockAxios.get).toHaveBeenCalledWith("https://duckduckgo.com/html/", {
           params: { q: "test query" },

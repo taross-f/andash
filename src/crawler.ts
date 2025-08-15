@@ -76,18 +76,25 @@ export async function crawlPages(
     const batchResults = await Promise.all(promises);
 
     for (let i = 0; i < batch.length; i++) {
-      const url = batch[i];
+      const _url = batch[i];
       const result = batchResults[i];
       if (!result) continue;
       const { page, links } = result;
       if (page) results.push(page);
 
-      for (const link of links || []) {
-        if (results.length + queue.length >= maxPages) break;
-        if (seen.has(link)) continue;
-        if (sameHostOnly && startHosts.length > 0 && !isSameHost(startHosts[0]!, link)) continue;
-        seen.add(link);
-        queue.push(link);
+      // Only add more links to queue if we haven't reached the limit yet
+      if (results.length < maxPages) {
+        for (const link of links || []) {
+          if (seen.has(link)) continue;
+          if (
+            sameHostOnly &&
+            startHosts.length > 0 &&
+            !startHosts.some((host) => isSameHost(host, link))
+          )
+            continue;
+          seen.add(link);
+          queue.push(link);
+        }
       }
     }
   }

@@ -2,6 +2,18 @@ import axios from "axios";
 import type { SearchResultItem } from "./types.js";
 import { getHost } from "./utils.js";
 
+interface TavilyResult {
+  title?: string;
+  url?: string;
+  content?: string;
+}
+
+interface SerpApiResult {
+  title?: string;
+  link?: string;
+  snippet?: string;
+}
+
 export async function searchWeb(
   query: string,
   provider: "auto" | "tavily" | "serpapi" = "auto",
@@ -33,7 +45,7 @@ export async function searchWeb(
       { timeout: 15000 }
     );
     const data = res.data || {};
-    const items = (data.results || []).slice(0, maxResults).map((r: any) => ({
+    const items = (data.results || []).slice(0, maxResults).map((r: TavilyResult) => ({
       title: String(r.title || r.url || ""),
       url: String(r.url || ""),
       snippet: r.content ? String(r.content).slice(0, 300) : undefined,
@@ -49,7 +61,7 @@ export async function searchWeb(
     });
     const data = res.data || {};
     const organic = data.organic_results || [];
-    return organic.slice(0, maxResults).map((r: any) => ({
+    return organic.slice(0, maxResults).map((r: SerpApiResult) => ({
       title: String(r.title || r.link || ""),
       url: String(r.link || ""),
       snippet: r.snippet ? String(r.snippet) : undefined,

@@ -211,7 +211,7 @@ describe("crawler", () => {
         .mockResolvedValueOnce({ data: page1Html })
         .mockResolvedValueOnce({ data: page2Html });
 
-      const results = await crawlPages(["https://example.com"], {
+      const _results = await crawlPages(["https://example.com"], {
         maxPages: 2,
         sameHostOnly: false,
       });
@@ -242,7 +242,7 @@ describe("crawler", () => {
     });
 
     it("deduplicates URLs", async () => {
-      const mockHtml = `
+      const _mockHtml = `
         <html>
           <body>
             <a href="/page1">Link 1</a>
@@ -253,7 +253,9 @@ describe("crawler", () => {
         </html>
       `;
 
-      mockAxios.get.mockResolvedValue({ data: "<html><body></body></html>" });
+      mockAxios.get
+        .mockResolvedValueOnce({ data: _mockHtml })
+        .mockResolvedValue({ data: "<html><body></body></html>" });
 
       await crawlPages(["https://example.com"], { maxPages: 10 });
 

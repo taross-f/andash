@@ -89,18 +89,17 @@ export async function generateProposals(opts: {
     const instructionsJa = `次の情報を踏まえて、CFP候補をちょうど${expected}件作成してください。出力はJSONのみ、コードフェンスなし。スキーマ: {"items": [{"title": string, "abstract": string, "targetAudience": string, "difficulty": "Beginner"|"Intermediate"|"Advanced"|"All", "rationale"?: string, "references"?: string[] }]}. 各タイトルは40〜70文字、概要は200〜400文字、referencesは最大3件の有効なURL。`;
     const instructionsEn = `Propose exactly ${expected} CFP ideas. Output JSON only (no code-fence). Schema: {"items": [{"title": string, "abstract": string, "targetAudience": string, "difficulty": "Beginner"|"Intermediate"|"Advanced"|"All", "rationale"?: string, "references"?: string[] }]}. Titles concise (40-70 chars), abstracts 4-6 sentences, up to 3 valid URLs.`;
 
-    const user =
-      (language === "ja" ? instructionsJa : instructionsEn) +
-      `\n\n[Conference]\n- Title: ${opts.conferenceTitle}\n- URL: ${
-        opts.conferenceUrl
-      }\n- Theme summary: ${opts.themeSummary}\n- Keywords: ${opts.keywords.join(
-        ", "
-      )}\n\n[Past schedule highlights]\n${
-        opts.scheduleBrief || (language === "ja" ? "(情報少)" : "(limited)")
-      }\n\n[Latest trends]\n${opts.trendBrief || (language === "ja" ? "(情報少)" : "(limited)")}` +
-      (previous
+    const user = `${language === "ja" ? instructionsJa : instructionsEn}\n\n[Conference]\n- Title: ${opts.conferenceTitle}\n- URL: ${
+      opts.conferenceUrl
+    }\n- Theme summary: ${opts.themeSummary}\n- Keywords: ${opts.keywords.join(
+      ", "
+    )}\n\n[Past schedule highlights]\n${
+      opts.scheduleBrief || (language === "ja" ? "(情報少)" : "(limited)")
+    }\n\n[Latest trends]\n${opts.trendBrief || (language === "ja" ? "(情報少)" : "(limited)")}${
+      previous
         ? `\n\nFix note: The previous output had an invalid count. Return exactly ${expected} items.`
-        : "");
+        : ""
+    }`;
 
     const resp = await client.chat.completions.create({
       model,
@@ -109,7 +108,7 @@ export async function generateProposals(opts: {
         { role: "user", content: user },
       ],
       temperature: 1,
-      response_format: { type: "json_object" } as any,
+      response_format: { type: "json_object" } as { type: "json_object" },
     });
 
     const raw = resp.choices?.[0]?.message?.content || "";

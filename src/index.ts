@@ -28,7 +28,7 @@ async function main() {
 
   const opts = program.opts();
   const confUrl: string = opts.conf;
-  const pastUrls: string[] = (opts.past ? String(opts.past).split(/[,\s]+/) : []).filter(Boolean);
+  const _pastUrls: string[] = (opts.past ? String(opts.past).split(/[,\s]+/) : []).filter(Boolean);
   const extraUrls: string[] = (opts.extra ? String(opts.extra).split(/[,\s]+/) : []).filter(
     Boolean
   );

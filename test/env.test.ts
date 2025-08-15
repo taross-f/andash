@@ -6,11 +6,11 @@ describe("env", () => {
 
   beforeEach(() => {
     // Clear environment variables before each test
-    delete process.env.OPENAI_MODEL;
-    delete process.env.OPENAI_API_KEY;
-    delete process.env.OPENROUTER_API_KEY;
-    delete process.env.OPENAI_BASE_URL;
-    delete process.env.SEARCH_PROVIDER;
+    process.env.OPENAI_MODEL = undefined;
+    process.env.OPENAI_API_KEY = undefined;
+    process.env.OPENROUTER_API_KEY = undefined;
+    process.env.OPENAI_BASE_URL = undefined;
+    process.env.SEARCH_PROVIDER = undefined;
   });
 
   afterEach(() => {
