@@ -15,10 +15,10 @@ CFP Helpは以下の機能を提供します:
 
 ```bash
 # 依存関係をインストール
-npm install
+bun install
 
 # グローバルCLIツールとしてインストール（オプション）
-npm link
+bun link
 ```
 
 ## 使用方法
@@ -27,11 +27,11 @@ npm link
 
 ```bash
 # 開発環境での実行
-npm run dev -- --conf https://example-conference.com --lang ja --num 5
+bun run dev --conf https://example-conference.com --lang ja --num 5
 
 # ビルド後の実行
-npm run build
-npm start -- --conf https://example-conference.com --lang ja --num 5
+bun run build
+bun start --conf https://example-conference.com --lang ja --num 5
 
 # グローバルインストール後
 cfp-help --conf https://example-conference.com --lang ja --num 5
@@ -107,23 +107,41 @@ outputs/cfp_report_conference-name.md
 
 ```bash
 # 開発サーバー起動
-npm run dev
+bun run dev
 
 # ビルド
-npm run build
+bun run build
+
+# テスト実行
+bun test
+
+# テスト（ウォッチモード）
+bun run test:watch
+
+# リント
+bun run lint
+
+# リント（自動修正）
+bun run lint:fix
+
+# フォーマット
+bun run format
 
 # 型チェック
-npx tsc --noEmit
+bun run typecheck
 ```
 
 ## 技術スタック
 
-- **言語**: TypeScript / Node.js 18+
+- **ランタイム**: Bun (Node.js 18+ 互換)
+- **言語**: TypeScript
 - **Webクローリング**: axios + cheerio
 - **LLM**: OpenAI API / OpenRouter
 - **検索**: Tavily API / SerpAPI / DuckDuckGo（フォールバック）
 - **並行処理**: p-limit
 - **スキーマ検証**: Zod
+- **リンター/フォーマッター**: Biome
+- **テスト**: Bun Test
 
 ## ライセンス
 

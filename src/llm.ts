@@ -1,7 +1,7 @@
-import { clampText } from "./utils.js";
+import z from "zod";
 import { getOpenAIClient, getOpenAIModel } from "./env.js";
 import type { CFPProposal, CrawledPage } from "./types.js";
-import z from "zod";
+import { clampText } from "./utils.js";
 
 export async function extractThemeAndKeywords(
   pages: CrawledPage[],
@@ -80,10 +80,7 @@ export async function generateProposals(opts: {
     return t;
   }
 
-  async function requestOnce(
-    expected: number,
-    previous?: string
-  ): Promise<CFPProposal[]> {
+  async function requestOnce(expected: number, previous?: string): Promise<CFPProposal[]> {
     const sys =
       language === "ja"
         ? "あなたはトップカンファレンスのCFPを設計する専門家です。実行可能で具体的、審査で通りやすい提案を日本語で出します。常にJSONのみを返します。"
@@ -96,15 +93,11 @@ export async function generateProposals(opts: {
       (language === "ja" ? instructionsJa : instructionsEn) +
       `\n\n[Conference]\n- Title: ${opts.conferenceTitle}\n- URL: ${
         opts.conferenceUrl
-      }\n- Theme summary: ${
-        opts.themeSummary
-      }\n- Keywords: ${opts.keywords.join(
+      }\n- Theme summary: ${opts.themeSummary}\n- Keywords: ${opts.keywords.join(
         ", "
       )}\n\n[Past schedule highlights]\n${
         opts.scheduleBrief || (language === "ja" ? "(情報少)" : "(limited)")
-      }\n\n[Latest trends]\n${
-        opts.trendBrief || (language === "ja" ? "(情報少)" : "(limited)")
-      }` +
+      }\n\n[Latest trends]\n${opts.trendBrief || (language === "ja" ? "(情報少)" : "(limited)")}` +
       (previous
         ? `\n\nFix note: The previous output had an invalid count. Return exactly ${expected} items.`
         : "");
@@ -160,8 +153,7 @@ export async function generateProposals(opts: {
     const baseKeywords = opts.keywords.slice(0, 8);
     while (proposals.length < num) {
       const idx = proposals.length + 1;
-      const k =
-        baseKeywords[idx % Math.max(1, baseKeywords.length)] || "Trends";
+      const k = baseKeywords[idx % Math.max(1, baseKeywords.length)] || "Trends";
       proposals.push({
         title: `${opts.conferenceTitle}: ${k} 実践と最新動向`,
         abstract: `${opts.conferenceTitle} のテーマに沿って、${k} に関する最新事例と実装上の注意点、運用のベストプラクティスを整理します。参加者は実務に直結する知見を持ち帰ることができます。`,

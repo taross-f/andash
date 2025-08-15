@@ -3,16 +3,14 @@ import path from "path";
 import type { CFPProposal, ConferenceInfo, CrawledPage, SearchResultItem } from "./types.js";
 import { slugify } from "./utils.js";
 
-export function generateReportMarkdown(
-  opts: {
-    conference: ConferenceInfo;
-    crawled: CrawledPage[];
-    scheduleResults: SearchResultItem[];
-    trendResults: SearchResultItem[];
-    proposals: CFPProposal[];
-    language: "ja" | "en";
-  }
-): string {
+export function generateReportMarkdown(opts: {
+  conference: ConferenceInfo;
+  crawled: CrawledPage[];
+  scheduleResults: SearchResultItem[];
+  trendResults: SearchResultItem[];
+  proposals: CFPProposal[];
+  language: "ja" | "en";
+}): string {
   const { conference, crawled, scheduleResults, trendResults, proposals, language } = opts;
   const title = conference.title || crawled[0]?.title || conference.url;
 

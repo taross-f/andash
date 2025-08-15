@@ -4,16 +4,23 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx src/index.ts",
-    "start": "node dist/index.js"
+    "dev": "bun run src/index.ts",
+    "start": "bun dist/index.js",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "lint": "bunx @biomejs/biome check .",
+    "lint:fix": "bunx @biomejs/biome check --write .",
+    "format": "bunx @biomejs/biome format --write .",
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
+  "keywords": ["cfp", "conference", "cli", "llm", "proposal-generation"],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "CFP proposal generation CLI tool for conferences",
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "bun": ">=1.0.0"
   },
   "dependencies": {
     "axios": "^1.11.0",
@@ -25,8 +32,8 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@types/node": "^24.2.1",
-    "tsx": "^4.20.3",
     "typescript": "^5.9.2"
   },
   "bin": {

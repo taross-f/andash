@@ -5,13 +5,21 @@ import { getHost } from "./utils.js";
 export async function searchWeb(
   query: string,
   provider: "auto" | "tavily" | "serpapi" = "auto",
-  maxResults: number = 8
+  maxResults = 8
 ): Promise<SearchResultItem[]> {
   const tavilyKey = process.env.TAVILY_API_KEY;
   const serpKey = process.env.SERPAPI_API_KEY;
 
   const chosen: "tavily" | "serpapi" | "naive" =
-    provider === "tavily" ? "tavily" : provider === "serpapi" ? "serpapi" : tavilyKey ? "tavily" : serpKey ? "serpapi" : "naive";
+    provider === "tavily"
+      ? "tavily"
+      : provider === "serpapi"
+        ? "serpapi"
+        : tavilyKey
+          ? "tavily"
+          : serpKey
+            ? "serpapi"
+            : "naive";
 
   if (chosen === "tavily" && tavilyKey) {
     const res = await axios.post(
@@ -51,9 +59,14 @@ export async function searchWeb(
 
   // naive fallback using DuckDuckGo lite HTML (no key). For prototyping only.
   try {
-    const res = await axios.get("https://duckduckgo.com/html/", { params: { q: query }, timeout: 15000 });
+    const res = await axios.get("https://duckduckgo.com/html/", {
+      params: { q: query },
+      timeout: 15000,
+    });
     const html = String(res.data);
-    const matches = Array.from(html.matchAll(/<a rel=\"nofollow\" class=\"result__a\" href=\"([^\"]+)\"[^>]*>(.*?)<\/a>/g));
+    const matches = Array.from(
+      html.matchAll(/<a rel=\"nofollow\" class=\"result__a\" href=\"([^\"]+)\"[^>]*>(.*?)<\/a>/g)
+    );
     return matches.slice(0, maxResults).map((m) => ({
       title: (m[2]?.replace(/<[^>]+>/g, "") || m[1] || "").toString(),
       url: (m[1] || "").toString(),

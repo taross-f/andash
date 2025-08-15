@@ -41,7 +41,11 @@ export async function crawlPages(
       const $ = cheerio.load(html);
       const title = ($("title").first().text() || url).trim();
 
-      const headings = ["h1", "h2", "h3"].map((h) => $(h).map((_, el) => $(el).text().trim()).get()).flat();
+      const headings = ["h1", "h2", "h3"].flatMap((h) =>
+        $(h)
+          .map((_, el) => $(el).text().trim())
+          .get()
+      );
 
       // Extract main text
       const texts: string[] = [];

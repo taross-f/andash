@@ -4,7 +4,7 @@ export function normalizeUrl(inputUrl: string): string {
   try {
     const url = new URL(inputUrl);
     url.hash = "";
-    if (url.pathname.endsWith("/")) {
+    if (url.pathname.endsWith("/") && url.pathname.length > 1) {
       url.pathname = url.pathname.slice(0, -1);
     }
     return url.toString();

@@ -10,16 +10,28 @@ CFP Help は、カンファレンスのウェブサイトを分析してCall for
 
 ```bash
 # 開発（ビルドなしで実行）
-npm run dev
+bun run dev
 
 # TypeScriptをdist/にビルド
-npm run build
+bun run build
 
 # ビルド版を実行
-npm start
+bun start
+
+# テスト実行
+bun test
+
+# リント
+bun run lint
+
+# フォーマット
+bun run format
+
+# 型チェック
+bun run typecheck
 
 # グローバルCLIツールとしてインストール
-npm link
+bun link
 ```
 
 ## アーキテクチャ
@@ -38,6 +50,8 @@ npm link
 - **スキーマ検証**: ZodによるCFP提案構造の厳密な検証
 - **堅牢なLLM統合**: JSON解析の失敗処理と正確な提案数のリトライ機能
 - **柔軟なAPIサポート**: OpenAI APIまたはOpenRouterによるモデルアクセスに対応
+- **品質管理**: Biomeによるリンティングとフォーマッティング
+- **テストカバレッジ**: Bunテストランナーによる包括的なユニットテスト
 
 ### 設定
 
@@ -56,10 +70,16 @@ cfp-help --conf <conference-url> --past <past-urls> --num 8 --lang ja
 
 ツールは `outputs/` ディレクトリにカンファレンス分析と生成されたCFP提案のマークダウンレポートを出力します。
 
-### TypeScript設定
+### 開発環境
 
-Node.js 18+をターゲットとしたES modulesでの厳密なTypeScript設定を使用。主要な厳密オプション:
+**ランタイム**: Bunを使用（Node.js 18+互換）
+
+**TypeScript設定**: ES modulesでの厳密な設定を使用。主要な厳密オプション:
 - `noUncheckedIndexedAccess`
 - `exactOptionalPropertyTypes` 
 - `verbatimModuleSyntax`
 - `isolatedModules`
+
+**テスト**: Bunの内蔵テストランナーを使用。テストファイルは `test/` ディレクトリ内に配置。
+
+**リント**: Biome (`biome.json`) でコードスタイルとエラーチェックを実行。
