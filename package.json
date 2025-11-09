@@ -1,42 +1,29 @@
 {
-  "name": "cfp_help",
+  "name": "cfp-help-monorepo",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "build": "tsc",
-    "dev": "bun run src/index.ts",
-    "start": "bun dist/index.js",
-    "test": "bun test",
-    "test:watch": "bun test --watch",
-    "lint": "bunx @biomejs/biome check .",
-    "lint:fix": "bunx @biomejs/biome check --write .",
-    "format": "bunx @biomejs/biome format --write .",
-    "typecheck": "tsc --noEmit"
+    "build": "pnpm -r build",
+    "dev:core": "pnpm --filter @cfp-help/core dev",
+    "dev:cli": "pnpm --filter @cfp-help/cli dev",
+    "dev:web": "pnpm --filter @cfp-help/web dev",
+    "build:core": "pnpm --filter @cfp-help/core build",
+    "build:cli": "pnpm --filter @cfp-help/cli build",
+    "build:web": "pnpm --filter @cfp-help/web build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @cfp-help/core test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  },
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=18"
   },
   "keywords": ["cfp", "conference", "cli", "llm", "proposal-generation"],
   "author": "",
   "license": "ISC",
-  "description": "CFP proposal generation CLI tool for conferences",
-  "type": "module",
-  "engines": {
-    "node": ">=18",
-    "bun": ">=1.0.0"
-  },
-  "dependencies": {
-    "axios": "^1.11.0",
-    "cheerio": "^1.1.2",
-    "commander": "^14.0.0",
-    "dotenv": "^17.2.1",
-    "openai": "^5.12.2",
-    "p-limit": "^6.2.0",
-    "zod": "^3.25.76"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/node": "^24.2.1",
-    "typescript": "^5.9.2"
-  },
-  "bin": {
-    "cfp-help": "dist/index.js"
-  }
+  "description": "CFP proposal generation tool for conferences (CLI & Web)"
 }

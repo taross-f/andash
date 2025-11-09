@@ -1,0 +1,25 @@
+name = "cfp-help-web"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = ".vercel/output/static"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "cfp-help-db"
+database_id = "your-d1-database-id" # Replace with actual ID after creation
+
+# R2 Storage for reports
+[[r2_buckets]]
+binding = "REPORTS"
+bucket_name = "cfp-help-reports"
+
+# Queue for background jobs
+[[queues.producers]]
+binding = "JOB_QUEUE"
+queue = "cfp-help-jobs"
+
+[[queues.consumers]]
+queue = "cfp-help-jobs"
+max_batch_size = 1
+max_batch_timeout = 30
+max_retries = 3

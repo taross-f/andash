@@ -8,6 +8,15 @@ yarn-error.log*
 dist/
 *.tsbuildinfo
 
+# Next.js
+.next/
+out/
+.vercel/
+
+# Wrangler
+.wrangler/
+.dev.vars
+
 # Environment variables
 .env
 .env.local
