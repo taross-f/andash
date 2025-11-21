@@ -1,42 +1,41 @@
-import { describe, it, expect, beforeEach, afterAll, spyOn } from "bun:test";
-import { appRouter } from "../server/root";
+import { afterAll, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as cfpService from "../lib/cfp-service";
+import { appRouter } from "../server/root";
 
 // Spy on the actual service
-const mockGenerateCFPProposals = spyOn(cfpService, "generateCFPProposals").mockImplementation(
-  () =>
-    Promise.resolve({
-      conference: {
+const mockGenerateCFPProposals = spyOn(cfpService, "generateCFPProposals").mockImplementation(() =>
+  Promise.resolve({
+    conference: {
+      url: "https://example.com",
+      title: "Test Conference",
+      themeSummary: "Tech innovation",
+      keywords: ["AI", "cloud"],
+    },
+    crawled: [
+      {
         url: "https://example.com",
         title: "Test Conference",
-        themeSummary: "Tech innovation",
-        keywords: ["AI", "cloud"],
+        text: "Content",
+        headings: [],
+        links: [],
       },
-      crawled: [
-        {
-          url: "https://example.com",
-          title: "Test Conference",
-          text: "Content",
-          headings: [],
-          links: [],
-        },
-      ],
-      scheduleResults: [
-        { title: "Past Schedule", url: "https://example.com/past", source: "tavily" as const },
-      ],
-      trendResults: [
-        { title: "AI Trends", url: "https://example.com/trends", source: "tavily" as const },
-      ],
-      proposals: [
-        {
-          title: "AI Proposal",
-          abstract: "Learn about AI",
-          targetAudience: "Developers",
-          difficulty: "Intermediate" as const,
-        },
-      ],
-      markdown: "# Report",
-    })
+    ],
+    scheduleResults: [
+      { title: "Past Schedule", url: "https://example.com/past", source: "tavily" as const },
+    ],
+    trendResults: [
+      { title: "AI Trends", url: "https://example.com/trends", source: "tavily" as const },
+    ],
+    proposals: [
+      {
+        title: "AI Proposal",
+        abstract: "Learn about AI",
+        targetAudience: "Developers",
+        difficulty: "Intermediate" as const,
+      },
+    ],
+    markdown: "# Report",
+  })
 );
 
 describe("tRPC Router", () => {

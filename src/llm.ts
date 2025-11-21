@@ -33,7 +33,7 @@ export async function extractThemeAndKeywords(
 
   const content = resp.choices?.[0]?.message?.content || "";
   const themeSummary = (content.split("\n")[0] || content.slice(0, 400)) ?? "";
-  const keywords = Array.from(content.matchAll(/^[\-\*]\s*(.+)$/gm))
+  const keywords = Array.from(content.matchAll(/^[-*]\s*(.+)$/gm))
     .map((m) => (m[1] ? m[1].trim() : ""))
     .filter(Boolean)
     .slice(0, 20);

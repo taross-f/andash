@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { publicProcedure, router } from "../trpc";
 import { generateCFPProposals } from "../../lib/cfp-service";
+import { publicProcedure, router } from "../trpc";
 
 const generateInputSchema = z.object({
   conferenceUrl: z.string().url(),

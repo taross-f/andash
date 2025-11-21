@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import pLimit from "p-limit";
-import type { CrawlOptions, CrawledPage } from "./types.js";
+import type { CrawledPage, CrawlOptions } from "./types.js";
 import { getHost, isSameHost, normalizeUrl, unique } from "./utils.js";
 
 const DEFAULT_UA =

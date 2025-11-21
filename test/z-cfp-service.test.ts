@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterAll, spyOn } from "bun:test";
+import { afterAll, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import type { CFPGenerationInput, CFPGenerationProgress } from "../lib/cfp-service";
 import { generateCFPProposals } from "../lib/cfp-service";
 import * as crawler from "../src/crawler.js";
 import * as llm from "../src/llm.js";
-import * as search from "../src/search.js";
 import * as report from "../src/report.js";
+import * as search from "../src/search.js";
 
 describe("CFP Service", () => {
   // Create spies

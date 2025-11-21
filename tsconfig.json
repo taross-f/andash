@@ -32,6 +32,14 @@
     "noEmitOnError": false,
     "allowJs": true
   },
-  "include": ["src/**/*", "app/**/*", "server/**/*", "lib/**/*", ".next/types/**/*.ts", "next-env.d.ts", "global.d.ts"],
+  "include": [
+    "src/**/*",
+    "app/**/*",
+    "server/**/*",
+    "lib/**/*",
+    ".next/types/**/*.ts",
+    "next-env.d.ts",
+    "global.d.ts"
+  ],
   "exclude": ["test/**/*", "dist/**/*", "node_modules/**/*"]
 }

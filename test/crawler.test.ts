@@ -158,10 +158,10 @@ describe("crawler", () => {
       // Mock the first call for the main page, then the second call for the linked page
       mockAxios.get.mockImplementation((url) => {
         console.log(`Mock called with URL: ${url}`);
-        if (url === 'https://example.com/') {
+        if (url === "https://example.com/") {
           return Promise.resolve({ data: page1Html });
         }
-        if (url === 'https://example.com/page2') {
+        if (url === "https://example.com/page2") {
           return Promise.resolve({ data: page2Html });
         }
         return Promise.resolve({ data: "<html><body></body></html>" });
@@ -169,10 +169,12 @@ describe("crawler", () => {
 
       const results = await crawlPages(["https://example.com"], { maxPages: 2 });
 
-      console.log(`Results length: ${results.length}, URLs called: ${mockAxios.get.mock.calls.map(call => call[0]).join(', ')}`);
-      
+      console.log(
+        `Results length: ${results.length}, URLs called: ${mockAxios.get.mock.calls.map((call) => call[0]).join(", ")}`
+      );
+
       // Check that we got at least one page (the crawler might have implementation details that limit crawling)
-      expect(results).toHaveLength(1);  // Adjust expectation to match actual behavior
+      expect(results).toHaveLength(1); // Adjust expectation to match actual behavior
       expect(results[0]?.title).toBe("Page 1");
       expect(mockAxios.get).toHaveBeenCalledWith("https://example.com/", expect.any(Object));
     });
@@ -219,10 +221,10 @@ describe("crawler", () => {
 
       // Mock responses based on URL
       mockAxios.get.mockImplementation((url) => {
-        if (url.includes('example.com')) {
+        if (url.includes("example.com")) {
           return Promise.resolve({ data: page1Html });
         }
-        if (url.includes('external.com')) {
+        if (url.includes("external.com")) {
           return Promise.resolve({ data: page2Html });
         }
         return Promise.resolve({ data: "<html></html>" });
@@ -250,10 +252,10 @@ describe("crawler", () => {
 
       // Mock implementation that succeeds for main page but fails for broken link
       mockAxios.get.mockImplementation((url) => {
-        if (url.includes('example.com') && !url.includes('broken')) {
+        if (url.includes("example.com") && !url.includes("broken")) {
           return Promise.resolve({ data: page1Html });
         }
-        if (url.includes('broken')) {
+        if (url.includes("broken")) {
           return Promise.reject(new Error("Network error"));
         }
         return Promise.resolve({ data: "<html></html>" });
@@ -289,10 +291,10 @@ describe("crawler", () => {
       await crawlPages(["https://example.com"], { maxPages: 10 });
 
       // Verify that the main page was called
-      const calledUrls = mockAxios.get.mock.calls.map(call => call[0]);
+      const calledUrls = mockAxios.get.mock.calls.map((call) => call[0]);
       const uniqueUrls = [...new Set(calledUrls)];
       expect(uniqueUrls).toContain("https://example.com/");
-      
+
       // The crawler may or may not follow links depending on implementation
       // Just verify deduplication works by checking no duplicates exist
       expect(uniqueUrls.length).toBe(calledUrls.length); // No duplicates

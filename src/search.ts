@@ -77,7 +77,7 @@ export async function searchWeb(
     });
     const html = String(res.data);
     const matches = Array.from(
-      html.matchAll(/<a rel=\"nofollow\" class=\"result__a\" href=\"([^\"]+)\"[^>]*>(.*?)<\/a>/g)
+      html.matchAll(/<a rel="nofollow" class="result__a" href="([^"]+)"[^>]*>(.*?)<\/a>/g)
     );
     return matches.slice(0, maxResults).map((m) => ({
       title: (m[2]?.replace(/<[^>]+>/g, "") || m[1] || "").toString(),
