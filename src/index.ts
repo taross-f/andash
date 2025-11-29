@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import dotenv from "dotenv";
-import { crawlPages } from "./crawler.js";
-import { extractThemeAndKeywords, generateProposals } from "./llm.js";
-import { generateReportMarkdown, writeReportFile } from "./report.js";
-import { buildScheduleQueries, searchWeb } from "./search.js";
-import type { ConferenceInfo, CrawledPage } from "./types.js";
-import { slugify } from "./utils.js";
+import { crawlPages } from "./crawler";
+import { extractThemeAndKeywords, generateProposals } from "./llm";
+import { generateReportMarkdown, writeReportFile } from "./report";
+import { buildScheduleQueries, searchWeb } from "./search";
+import type { ConferenceInfo, CrawledPage } from "./types";
+import { slugify } from "./utils";
 
 dotenv.config();
 

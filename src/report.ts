@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { CFPProposal, ConferenceInfo, CrawledPage, SearchResultItem } from "./types.js";
-import { slugify } from "./utils.js";
+import type { CFPProposal, ConferenceInfo, CrawledPage, SearchResultItem } from "./types";
+import { slugify } from "./utils";
 
 export function generateReportMarkdown(opts: {
   conference: ConferenceInfo;

@@ -1,18 +1,18 @@
 /**
  * Shared CFP generation service - used by both CLI and Web app
  */
-import { crawlPages } from "../src/crawler.js";
-import { extractThemeAndKeywords, generateProposals } from "../src/llm.js";
-import { generateReportMarkdown } from "../src/report.js";
-import { buildScheduleQueries, searchWeb } from "../src/search.js";
+import { crawlPages } from "../src/crawler";
+import { extractThemeAndKeywords, generateProposals } from "../src/llm";
+import { generateReportMarkdown } from "../src/report";
+import { buildScheduleQueries, searchWeb } from "../src/search";
 import type {
   CFPProposal,
   ConferenceInfo,
   CrawledPage,
   Language,
   SearchResultItem,
-} from "../src/types.js";
-import { slugify } from "../src/utils.js";
+} from "../src/types";
+import { slugify } from "../src/utils";
 
 export interface CFPGenerationInput {
   conferenceUrl: string;

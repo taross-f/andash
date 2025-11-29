@@ -7,9 +7,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: process.env.SKIP_ENV_VALIDATION === "true",
   },
-  experimental: {
-    serverComponentsExternalPackages: ["cheerio", "axios"],
-  },
+  serverExternalPackages: ["cheerio", "axios"],
 };
 
 export default nextConfig;

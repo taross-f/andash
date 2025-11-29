@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { SearchResultItem } from "./types.js";
-import { getHost } from "./utils.js";
+import type { SearchResultItem } from "./types";
+import { getHost } from "./utils";
 
 interface TavilyResult {
   title?: string;

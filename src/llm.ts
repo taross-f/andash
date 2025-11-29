@@ -1,7 +1,7 @@
 import z from "zod";
-import { getOpenAIClient, getOpenAIModel } from "./env.js";
-import type { CFPProposal, CrawledPage } from "./types.js";
-import { clampText } from "./utils.js";
+import { getOpenAIClient, getOpenAIModel } from "./env";
+import type { CFPProposal, CrawledPage } from "./types";
+import { clampText } from "./utils";
 
 export async function extractThemeAndKeywords(
   pages: CrawledPage[],
