@@ -1,32 +1,44 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "dist",
-
     "module": "esnext",
     "target": "es2021",
-    "lib": ["es2021"],
+    "lib": ["es2021", "dom", "dom.iterable"],
     "types": ["node"],
-
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
+    "declaration": false,
+    "declarationMap": false,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
     "strict": true,
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "noEmitOnError": false
+    "moduleResolution": "bundler",
+    "noEmitOnError": false,
+    "allowJs": true,
+    "noEmit": true
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "app/**/*",
+    "server/**/*",
+    "lib/**/*",
+    ".next/types/**/*.ts",
+    "next-env.d.ts",
+    "global.d.ts"
+  ],
   "exclude": ["test/**/*", "dist/**/*", "node_modules/**/*"]
 }

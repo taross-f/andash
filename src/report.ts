@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { CFPProposal, ConferenceInfo, CrawledPage, SearchResultItem } from "./types.js";
-import { slugify } from "./utils.js";
+import type { CFPProposal, ConferenceInfo, CrawledPage, SearchResultItem } from "./types";
+import { slugify } from "./utils";
 
 export function generateReportMarkdown(opts: {
   conference: ConferenceInfo;
@@ -35,7 +35,9 @@ export function generateReportMarkdown(opts: {
     if (p.rationale) lines.push(`${language === "ja" ? "根拠" : "Rationale"}: ${p.rationale}`);
     if (p.references?.length) {
       lines.push(`${language === "ja" ? "参考URL" : "References"}:`);
-      p.references.forEach((u) => lines.push(`- ${u}`));
+      for (const u of p.references) {
+        lines.push(`- ${u}`);
+      }
     }
     lines.push("");
   });
@@ -44,18 +46,24 @@ export function generateReportMarkdown(opts: {
   lines.push("");
   if (scheduleResults.length) {
     lines.push("### 過去スケジュール/アジェンダの候補");
-    scheduleResults.forEach((r) => lines.push(`- ${r.title} — ${r.url}`));
+    for (const r of scheduleResults) {
+      lines.push(`- ${r.title} — ${r.url}`);
+    }
     lines.push("");
   }
   if (trendResults.length) {
     lines.push("### 最新トレンド候補");
-    trendResults.forEach((r) => lines.push(`- ${r.title} — ${r.url}`));
+    for (const r of trendResults) {
+      lines.push(`- ${r.title} — ${r.url}`);
+    }
     lines.push("");
   }
 
   // Include crawled pages for traceability
   lines.push("### クロールページ一覧");
-  crawled.slice(0, 20).forEach((p) => lines.push(`- ${p.title} — ${p.url}`));
+  for (const p of crawled.slice(0, 20)) {
+    lines.push(`- ${p.title} — ${p.url}`);
+  }
 
   return lines.join("\n");
 }

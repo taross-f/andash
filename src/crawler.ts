@@ -1,8 +1,8 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import pLimit from "p-limit";
-import type { CrawlOptions, CrawledPage } from "./types.js";
-import { getHost, isSameHost, normalizeUrl, unique } from "./utils.js";
+import type { CrawledPage, CrawlOptions } from "./types";
+import { getHost, isSameHost, normalizeUrl, unique } from "./utils";
 
 const DEFAULT_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
