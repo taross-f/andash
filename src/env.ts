@@ -3,6 +3,23 @@ import OpenAI from "openai";
 
 dotenv.config();
 
+/**
+ * Environment variables:
+ *
+ * LLM:
+ * - OPENAI_API_KEY or OPENROUTER_API_KEY - LLM API access
+ * - OPENAI_MODEL - Model to use (default: gpt-4o-mini)
+ * - OPENAI_BASE_URL - Custom API endpoint
+ *
+ * Search:
+ * - TAVILY_API_KEY or SERPAPI_API_KEY - Search provider API key
+ * - SEARCH_PROVIDER - Force specific provider (auto/tavily/serpapi)
+ *
+ * Blog features (Notion/Slack):
+ * - NOTION_API_KEY - Notion integration token
+ * - SLACK_BOT_TOKEN - Slack bot OAuth token
+ */
+
 export function getOpenAIModel(): string {
   return process.env.OPENAI_MODEL || "gpt-4o-mini";
 }
@@ -24,4 +41,12 @@ export function getSearchProvider(): "auto" | "tavily" | "serpapi" {
   const v = (process.env.SEARCH_PROVIDER || "auto").toLowerCase();
   if (v === "tavily" || v === "serpapi") return v;
   return "auto";
+}
+
+export function hasNotionConfig(): boolean {
+  return !!process.env.NOTION_API_KEY;
+}
+
+export function hasSlackConfig(): boolean {
+  return !!process.env.SLACK_BOT_TOKEN;
 }

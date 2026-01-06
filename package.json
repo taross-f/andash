@@ -6,8 +6,10 @@
     "build": "tsc -p tsconfig.cli.json",
     "build:web": "next build",
     "dev": "bun run src/index.ts",
+    "dev:blog": "bun run src/blog-cli.ts",
     "dev:web": "next dev",
     "start": "bun dist/index.js",
+    "start:blog": "bun dist/blog-cli.js",
     "start:web": "next start",
     "test": "bun test",
     "test:watch": "bun test --watch",
@@ -63,6 +65,7 @@
     "typescript": "^5.9.2"
   },
   "bin": {
-    "cfp-help": "dist/index.js"
+    "cfp-help": "dist/index.js",
+    "blog-help": "dist/blog-cli.js"
   }
 }
